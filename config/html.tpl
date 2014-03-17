@@ -2,7 +2,7 @@
 <!--
     Example HTML template file for uup/upp-mail.
 -->
-<html style="height: 90%">
+<html style="height: 90%%">
     <head>
         <style>
             h2 { color: #666; text-decoration: underline; }
@@ -12,8 +12,8 @@
             td.body { padding-right: 10px; }
         </style>
     </head>
-    <body style="height: 100%">
-        <table width="100%" style="height: 80%">
+    <body style="height: 100%%">
+        <table width="100%" style="height: 80%%">
             <tr>
                 <td class="body" width="100%">
                     <h2>%1$s</h2>
