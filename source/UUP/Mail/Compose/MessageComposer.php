@@ -68,7 +68,7 @@ if (!defined('UUP_MAIL_MESSAGE_GREETER')) {
  * @property-read array $sections Optional message sections as associative array.
  * @property-read string $greeting The message greeting.
  * @property-read string $footer The message footer.
- * @property-read array $options The options array passed to constructor.
+ * @property-read MessageOptions $options The message options object.
  *
  * @author Anders Lövgren (QNET/BMC CompDept)
  * @package UUP
@@ -89,20 +89,22 @@ class MessageComposer
          *      "contact_name" => "Anders Lövgren",                  // (1)
          *      "contact_addr" => "anders.lovgren@bmc.uu.se",        // (1)
          *      "app_name"     => "Web application name",            // (2)
-         *      "base_url"     => "http://localhost/webapp"          // (2)
+         *      "app_base"     => "http://localhost/webapp"          // (2)
          * );
          * </code>
          * @param string $title The message title.
          * @param string $message The leading message section.
-         * @param array $options Array of miscellanous option.
+         * @param MessageOptions $options Message options object.
          */
-        public function __construct($title, $message, $options = array())
+        public function __construct($title, $message, $options = null)
         {
                 $this->data = (object) array();
                 $this->data->title = $title;
                 $this->data->message = $message;
-                $this->data->options = $options;
                 $this->data->sections = array();
+                if (!($this->data->options = $options)) {
+                        $this->data->options = MessageOptions::instance();
+                }
         }
 
         public function __get($name)
@@ -164,7 +166,7 @@ class MessageComposer
                 if (isset($this->data->footer)) {
                         return $this->data->footer;
                 } else {
-                        return sprintf(UUP_MAIL_MESSAGE_FOOTER, $this->data->options['app_name'], $this->data->options['base_url']);
+                        return sprintf(UUP_MAIL_MESSAGE_FOOTER, $this->data->options->app_name, $this->data->options->app_base);
                 }
         }
 
@@ -176,7 +178,7 @@ class MessageComposer
                 if (isset($this->data->greeting)) {
                         return $this->data->greeting;
                 } else {
-                        return sprintf(UUP_MAIL_MESSAGE_GREETER, $this->data->options['contact_name'], $this->data->options['contact_addr']);
+                        return sprintf(UUP_MAIL_MESSAGE_GREETER, $this->data->options->contact_name, $this->data->options->contact_addr);
                 }
         }
 
