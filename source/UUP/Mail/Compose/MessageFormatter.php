@@ -165,7 +165,6 @@ class MessageFormatter
                         }
                 }
 
-                print_r($template);
                 return sprintf($template, $message->title, str_replace("\n", "<br />", $message->message), $sections, $message->greeting, $message->footer);
         }
 
