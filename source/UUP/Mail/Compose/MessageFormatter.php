@@ -22,29 +22,39 @@ namespace UUP\Mail\Compose;
  * Format message using templates.
  * 
  * The template could be defined by a string or an template object. The template 
- * should contain sprintf() placeholders (i.e. %3$s) that gets substituted. This
- * are the arguments and their ordinal numbering:
+ * should contain sprintf() placeholders (i.e. %3$s) that gets substituted. 
  * 
- * $message->title, $delimiter, $message->message, $sections, $message->greeting, $delimiter, $message->footer
+ * These are the arguments and their ordinal numbering as passed to the template
+ * string for substitution:
+ * 
  * <ol>
  * <li>The message title.</li>
  * <li>The leading message section.</li>
- * <li>Optional message sections including headers.</li>
- * <li>Message greeting.</li>
- * <li>Message footer.</li>
+ * <li>Optional message sections including their headers.</li>
+ * <li>The message greeting.</li>
+ * <li>The message footer.</li>
  * </ol>
  * 
- * Usage example:
+ * Example plain text message template:
  * <code>
- * $composer = new MessageComposer($title, $message);
+ * $texttpl = "%1$s\n%2$s\n\n%3$s\n\n// %4$s\n\n%5$s\n";
+ * </code>
+ * 
+ * Example showing different ways of formatting composed messages:
+ * <code>
+ * // Load template from file:
+ * $htmltpl = new MessageTemplate('template/html.tpl');
+ * $texttpl = new MessageTemplate('template/text.tpl');
+ * 
+ * // Initialize with templates at construction time:
  * $formatter = new MessageFormatter($htmltpl, $texttpl);
- *
- * $message = new MimeMessage();
- * $message->setHtml($formatter->getHtmlBody($composer));
- * $message->setText($formatter->getTextBody($composer));
- *
- * $message->setTo(...);
- * $message->send();
+ * $message->setHtml($formatter->getHtmlBody($composer);
+ * $message->setText($formatter->getHtmlBody($composer);
+ * 
+ * // Pass templates as argument at formatting time:
+ * $formatter = new MessageFormatter();
+ * $message->setHtml($formatter->getHtmlBody($composer, $htmltpl);
+ * $message->setText($formatter->getHtmlBody($composer, $texttpl);
  * </code>
  *
  * @author Anders Lövgren (QNET/BMC CompDept)
@@ -92,14 +102,18 @@ class MessageFormatter
          * @param string|MessageTemplate $template The plain text template.
          * @return string
          */
-        public function getTextBody($message, $template = "")
+        public function getTextBody($message, $template = null)
         {
                 $sections = "";
                 $delimiter = "--------------------------------------------------------";
 
+                if (!isset($template)) {
+                        $template = $this->text;
+                }
                 if (!is_string($template)) {
                         $delimiter = $template->delimiter;
                 }
+                
                 if (count($message->sections)) {
                         foreach ($message->sections as $header => $content) {
                                 $sections .= sprintf("\n** %s\n%s", $header, $delimiter);
@@ -109,7 +123,7 @@ class MessageFormatter
                         }
                 }
 
-                return sprintf($template, $message->title, $delimiter, $message->message, $sections, $message->greeting, $delimiter, $message->footer);
+                return sprintf($template, $message->title, $message->message, $sections, $message->greeting, $message->footer);
         }
 
         /**
@@ -118,16 +132,20 @@ class MessageFormatter
          * @param string|MessageTemplate $template The HTML template.
          * @return string
          */
-        public function getHtmlBody($message, $template = "")
+        public function getHtmlBody($message, $template = null)
         {
-                $message->tfooter = sprintf($message->footer, sprintf("<a href=\"%s\">%s</a>", $message->options['base_url'], $message->options['base_url']));
+                $message->tfooter = sprintf($message->footer, sprintf("<a href=\"%s\">%s</a>", $message->options->app_base, $message->options->app_base));
 
                 $sections = "";
                 $delimiter = "<br/>";
 
+                if (!isset($template)) {
+                        $template = $this->html;
+                }
                 if (!is_string($template)) {
                         $delimiter = $template->delimiter;
                 }
+                
                 if (count($message->sections)) {
                         foreach ($message->sections as $header => $content) {
                                 $sections .= sprintf("<p><b><u>%s</u></b>", $header, $delimiter);
@@ -147,6 +165,7 @@ class MessageFormatter
                         }
                 }
 
+                print_r($template);
                 return sprintf($template, $message->title, str_replace("\n", "<br />", $message->message), $sections, $message->greeting, $message->footer);
         }
 
