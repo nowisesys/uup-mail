@@ -41,8 +41,9 @@ class Message extends \Swift_Message
          */
         public function __construct($composer, $formatter)
         {
-                $this->setBody($formatter->getHtmlBody($composer), 'text/html', 'UTF-8');
-                $this->addPart($formatter->getTextBody($composer), 'text/plain', 'UTF-8');
+                parent::__construct();
+                $this->setBody($formatter->getHtmlBody($composer), 'text/html');
+                $this->addPart($formatter->getTextBody($composer), 'text/plain');
         }
 
 }
