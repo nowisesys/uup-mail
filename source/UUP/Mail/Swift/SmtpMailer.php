@@ -38,14 +38,4 @@ class SmtpMailer extends \Swift_Mailer
                 parent::__construct(new \Swift_SmtpTransport($host, $port));
         }
 
-        /**
-         * Send message to recepients.
-         * @param Message $message The message
-         * @param type $failedRecipients 
-         */
-        public function send(Message $message, &$failedRecipients = null)
-        {
-                parent::send($message, $failedRecipients);
-        }
-
 }
