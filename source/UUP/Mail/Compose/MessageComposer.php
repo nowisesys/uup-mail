@@ -94,30 +94,26 @@ class MessageComposer
          * </code>
          * @param string $title The message title.
          * @param string $message The leading message section.
-         * @param MessageOptions $options Message options object.
+         * @param array|MessageOptions $options Message options object or array.
          */
-        public function __construct($title, $message, $options = null)
+        public function __construct($title, $message, $options = array())
         {
                 $this->data = (object) array();
+
                 $this->data->title = $title;
                 $this->data->message = $message;
                 $this->data->sections = array();
-                if (!($this->data->options = $options)) {
-                        $this->data->options = MessageOptions::instance();
-                }
+
+                $this->data->options = self::getOptions($options);
+
+                $this->data->footer = $this->getFooter();
+                $this->data->greeting = $this->getGreeting();
         }
 
         public function __get($name)
         {
-                switch ($name) {
-                        case 'greeting':
-                                return $this->greeting();
-                        case 'footer':
-                                return $this->footer();
-                        default:
-                                if (isset($this->data->$name)) {
-                                        return $this->data->$name;
-                                }
+                if (isset($this->data->$name)) {
+                        return $this->data->$name;
                 }
         }
 
@@ -159,26 +155,32 @@ class MessageComposer
         }
 
         //
-        // Generate the mail message footer in requested format.
+        // Generate the message footer using default format.
         // 
-        private function footer()
+        private function getFooter()
         {
-                if (isset($this->data->footer)) {
-                        return $this->data->footer;
-                } else {
-                        return sprintf(UUP_MAIL_MESSAGE_FOOTER, $this->data->options->app_name, $this->data->options->app_base);
-                }
+                return sprintf(UUP_MAIL_MESSAGE_FOOTER, $this->data->options->app_name, $this->data->options->app_base);
         }
 
         //
-        // Get greeting, either set by caller or the default one.
+        // Generate the message greeter using default format.
         //
-        private function greeting()
+        private function getGreeting()
         {
-                if (isset($this->data->greeting)) {
-                        return $this->data->greeting;
+                return sprintf(UUP_MAIL_MESSAGE_GREETER, $this->data->options->contact_name, $this->data->options->contact_addr);
+        }
+
+        // 
+        // Return same message options object or a copy of the default options
+        // object merged with the passed options array.
+        // 
+        private static function getOptions($options)
+        {
+                if ($options instanceof MessageOptions) {
+                        return $options;
                 } else {
-                        return sprintf(UUP_MAIL_MESSAGE_GREETER, $this->data->options->contact_name, $this->data->options->contact_addr);
+                        $standard = clone MessageOptions::instance();
+                        return $standard->merge($options);
                 }
         }
 
