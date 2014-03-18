@@ -32,7 +32,7 @@ class MessageTemplate
         /**
          * @var string The section delimiter.
          */
-        public $delimiter = "";
+        public $delimiter = null;
 
         /**
          * Constructor.
