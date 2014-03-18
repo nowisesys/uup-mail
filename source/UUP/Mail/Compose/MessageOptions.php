@@ -103,7 +103,11 @@ class MessageOptions
                 }
         }
 
-        private static function defaults()
+        /**
+         * Get default options.
+         * @return array
+         */
+        public static function defaults()
         {
                 return array(
                         'contact_addr' => self::lookup('SERVER_ADMIN', 'root@localhost'),
