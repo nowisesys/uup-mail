@@ -2,12 +2,17 @@
 
 // 
 // SMTP configuration. Only for testing, not required by library. 
-// Copy to config/smtp.inc before running unit test.
+// Copy to config/smtp.inc before running unit test or examples.
 // 
 
 $smtp_config = array(
-        'server' => 'localhost',
-        'port'   => 25,
-        'user'   => null,
-        'pass'   => null
+        'host' => 'localhost',
+        'port' => 25,
+        'user' => null,
+        'pass' => null
+);
+
+$mail_config = array(
+        'to'   => 'root@localhost',
+        'from' => 'root@localhost'
 );
