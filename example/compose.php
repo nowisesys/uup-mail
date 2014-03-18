@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Copyright (C) 2014 Anders Lövgren (QNET/BMC CompDept).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +22,7 @@ use UUP\Mail\Compose\MessageComposer;
 
 class ConfirmAccountRequest extends MessageComposer
 {
+
         public function __construct()
         {
                 parent::__construct("Confirm Account", "Your account has been created. Reply to this message in order to confirm the account request.");
@@ -31,6 +32,7 @@ class ConfirmAccountRequest extends MessageComposer
                 parent::addSection("Reject Account Request");
                 parent::addContent("If you have not requested this account, then just ignore this message.");
         }
+
 }
 
 $confirm = new ConfirmAccountRequest();
@@ -43,9 +45,9 @@ printf("# ----------------------------------------\n");
 printf("# %s\n", $confirm->title);
 printf("# ----------------------------------------\n");
 printf("# %s\n", $confirm->message);
-foreach($confirm->sections as $head => $data) {
+foreach ($confirm->sections as $head => $data) {
         printf("# \n# ** %s\n#\n", $head);
-        foreach($data as $text) {
+        foreach ($data as $text) {
                 printf("#    %s\n", $text);
         }
 }
