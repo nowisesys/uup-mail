@@ -53,7 +53,10 @@ class MessageComposerTest extends \PHPUnit_Framework_TestCase
                 $this->assertTrue($this->object->message == $this->message);
 
                 $this->assertNotNull($this->object->options);
-                $this->assertTrue(is_array($this->object->options));
+                $this->assertTrue($this->object->options instanceof MessageOptions);
+                foreach (array_keys($this->options) as $key) {
+                        $this->assertTrue($this->options[$key] == $this->object->options->$key);
+                }
 
                 $this->assertNotNull($this->object->sections);
                 $this->assertTrue(is_array($this->object->sections));
@@ -71,7 +74,7 @@ class MessageComposerTest extends \PHPUnit_Framework_TestCase
         public function testAddSection()
         {
                 $sect = 'head1';
-                
+
                 $this->assertTrue(count($this->object->sections) == 0);
                 $this->assertFalse(isset($this->object->sections[$sect]));
                 $this->object->addSection($sect);
@@ -86,7 +89,7 @@ class MessageComposerTest extends \PHPUnit_Framework_TestCase
         {
                 $sect = 'head1';
                 $text = 'Some text';
-                
+
                 $this->assertTrue(count($this->object->sections) == 0);
                 $this->object->addSection($sect);
                 $this->object->addContent($text);
@@ -101,7 +104,7 @@ class MessageComposerTest extends \PHPUnit_Framework_TestCase
         public function testSetGreeting()
         {
                 $text = 'Greeting';
-                
+
                 $this->object->setGreeting($text);
                 $this->assertTrue($this->object->greeting == $text);
         }
@@ -112,7 +115,7 @@ class MessageComposerTest extends \PHPUnit_Framework_TestCase
         public function testSetFooter()
         {
                 $text = 'Footer';
-                
+
                 $this->object->setFooter($text);
                 $this->assertTrue($this->object->footer == $text);
         }
