@@ -45,7 +45,7 @@ if (!defined('UUP_MAIL_MESSAGE_GREETER')) {
  *
  * The sections part is contructed by the sections member. Each section consists
  * of an header and one or more parts. Each part is rendered as an paragraph
- * split by two newlines (&gt;br&lt;-tags in HTML-mode).
+ * split by two newlines (&lt;br&gt;-tags in HTML-mode).
  * 
  * Use together with the message template class to generate HTML and plain text 
  * message bodies. This class was designed to be used as the parent class for 
