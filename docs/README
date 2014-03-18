@@ -1,0 +1,35 @@
+=============================================================================
+    UUP-MAIL - Mail template and composing library for PHP
+=============================================================================
+
+The uup-mail library provides a mail template and composer library for formatting
+mail messages. The main focus is on the composition. All message sending is 
+delegated to the swift-mailer library.
+
+This library is not designed to be used as a component library. Instead, it was
+designed with inheritance in mind. Create your own mail message classes (one for 
+each particular kind of message) derived from class MessageComposer and implement 
+the MessageCreator interface:
+
+// 
+// Example:
+// 
+class ConfirmSubscriptionMessage extends MessageComposer implements MessageCreator
+{
+        public function __construct()
+        {
+                parent::__construct(_("Confirm Subscription", _("...")));
+                // ... create section headers with content.
+        }
+
+        public function create($formatter) 
+        {
+                return new Message($this, $formatter);  // Swift_Message
+        }
+}
+
+$composer = new ConfirmSubscriptionMessage();
+$message  = $composer->create($formatter);
+$mailer->send($message);
+
+// Anders Lövgren, 2014-03-18
