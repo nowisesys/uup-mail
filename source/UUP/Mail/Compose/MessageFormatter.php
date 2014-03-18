@@ -110,10 +110,12 @@ class MessageFormatter
                 if (!isset($template)) {
                         $template = $this->text;
                 }
-                if (!is_string($template)) {
+                if (!is_string($template) && isset($template->delimiter)) {
                         $delimiter = $template->delimiter;
                 }
-                
+
+                $template = str_replace(array('$$delimiter'), array($delimiter), $template);
+
                 if (count($message->sections)) {
                         foreach ($message->sections as $header => $content) {
                                 $sections .= sprintf("\n** %s\n%s", $header, $delimiter);
@@ -142,30 +144,32 @@ class MessageFormatter
                 if (!isset($template)) {
                         $template = $this->html;
                 }
-                if (!is_string($template)) {
+                if (!is_string($template) && isset($template->delimiter)) {
                         $delimiter = $template->delimiter;
                 }
-                
+
+                $subst = function($part) {
+                        return preg_replace(
+                            array(
+                                "|(https?://[\w-?.&=/]*)\s?|",
+                                "|([\w.-]*?@[\w.-]*)\s?|"
+                            ), array(
+                                "<a href=\"$1\">$1</a> ",
+                                "<a href=\"mailto:$1\">$1</a> "
+                            ), $part);
+                };
+
                 if (count($message->sections)) {
                         foreach ($message->sections as $header => $content) {
-                                $sections .= sprintf("<p><b><u>%s</u></b>", $header, $delimiter);
+                                $sections .= sprintf("<div class=\"head\">%s</div><div class=\"sect\">", $header, $delimiter);
                                 foreach ($content as $part) {
-                                        $part = trim($part);
-                                        $part = preg_replace(
-                                            array(
-                                                "|(https?://[\w-?.&=/]*)\s?|",
-                                                "|([\w.-]*?@[\w.-]*)\s?|"
-                                            ), array(
-                                                "<a href=\"$1\">$1</a> ",
-                                                "<a href=\"mailto:$1\">$1</a> "
-                                            ), $part);
-                                        $sections .= sprintf("<br/>%s<br/>", str_replace("\n", "<br />", $part));
+                                        $sections .= sprintf("<div class=\"part\">%s</div>", str_replace("\n", "<br/>", $subst(trim($part))));
                                 }
-                                $sections .= "</p>";
+                                $sections .= "</div>";
                         }
                 }
 
-                return sprintf($template, $message->title, str_replace("\n", "<br />", $message->message), $sections, $message->greeting, $message->footer);
+                return sprintf($template, $message->title, str_replace("\n", "<br />", $message->message), $sections, $subst($message->greeting), $subst($message->footer));
         }
 
 }
