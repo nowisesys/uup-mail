@@ -1,6 +1,6 @@
 {
     "name": "bmc/uup-mail",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Object oriented mail message composer for sending multipart (HTML/plain text) messages optionally formatted using templates (for HTML and plain text layout).",
     "type": "library",
     "keywords": ["mail", "mime", "compose", "uup", "bmc"],
