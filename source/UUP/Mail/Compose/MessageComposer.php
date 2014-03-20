@@ -137,6 +137,17 @@ class MessageComposer
         }
 
         /**
+         * Replace content in section named by header.
+         * @param string $header The section header.
+         * @param string $content The content text.
+         */
+        public function setContent($header, $content)
+        {
+                $this->data->header = $header;
+                $this->data->sections[$header] = array($content);
+        }
+
+        /**
          * Set message greeting.
          * @param string $str The greeting text.
          */
