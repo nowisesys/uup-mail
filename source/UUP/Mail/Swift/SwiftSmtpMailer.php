@@ -18,6 +18,8 @@
 
 namespace UUP\Mail\Swift;
 
+use UUP\Mail\MessageMailer;
+
 /**
  * Simple mailer using the Swift Mailer and Transport classes.
  *
@@ -25,8 +27,10 @@ namespace UUP\Mail\Swift;
  * @package UUP
  * @subpackage Mail
  */
-class SmtpMailer extends \Swift_Mailer
+class SwiftSmtpMailer implements MessageMailer
 {
+
+        private $impl;
 
         /**
          * Constructor.
@@ -35,7 +39,19 @@ class SmtpMailer extends \Swift_Mailer
          */
         public function __construct($host = 'localhost', $port = 25)
         {
-                parent::__construct(new \Swift_SmtpTransport($host, $port));
+                $this->impl = \Swift_Mailer::newInstance(
+                        \Swift_SmtpTransport::newInstance($host, $port)
+                );
+        }
+
+        public function create($composer, $formatter)
+        {
+                return new SwiftMessage($composer, $formatter);
+        }
+
+        public function send($message)
+        {
+                $this->impl->send($message);
         }
 
 }

@@ -19,7 +19,8 @@
 namespace UUP\Mail\Swift;
 
 use UUP\Mail\Compose\MessageComposer,
-    UUP\Mail\Compose\MessageFormatter;
+    UUP\Mail\Compose\MessageFormatter,
+    UUP\Mail\Message;
 
 /**
  * Create a Swift Mailer Message.
@@ -31,7 +32,7 @@ use UUP\Mail\Compose\MessageComposer,
  * @package UUP
  * @subpackage Mail
  */
-class Message extends \Swift_Message
+class SwiftMessage extends \Swift_Message implements Message
 {
 
         /**
@@ -42,8 +43,28 @@ class Message extends \Swift_Message
         public function __construct($composer, $formatter)
         {
                 parent::__construct();
-                $this->setBody($formatter->getHtmlBody($composer), 'text/html');
-                $this->addPart($formatter->getTextBody($composer), 'text/plain');
+                parent::setBody($formatter->getHtmlBody($composer), 'text/html');
+                parent::addPart($formatter->getTextBody($composer), 'text/plain');
+        }
+
+        public function setHtml($body)
+        {
+                parent::setBody($body, 'text/html');
+        }
+
+        public function setText($body)
+        {
+                parent::addPart($body, 'text/plain');
+        }
+
+        public function attachData($data, $file = null, $type = null)
+        {
+                parent::attach(\Swift_Attachment::newInstance($data, $file, $type));
+        }
+
+        public function attachFile($file, $type = null)
+        {
+                parent::attach(\Swift_Attachment::fromPath($file, $type));
         }
 
 }
