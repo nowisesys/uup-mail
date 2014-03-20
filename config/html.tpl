@@ -22,7 +22,7 @@
                 <td class="body">
                     <h2>%1$s</h2>
                     <p>%2$s</p><br/>
-                    <div class="cont">%3$s</div><br/>
+                    <p>%3$s</p><br/>
                     <hr/><span class="greeter">%4$s</span>
                     <hr/><br/><span class="footer">%5$s</span>
                 </td>

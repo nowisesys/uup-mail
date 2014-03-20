@@ -160,6 +160,7 @@ class MessageFormatter
                 };
 
                 if (count($message->sections)) {
+                        $sections .= "<div class=\"cont\">";
                         foreach ($message->sections as $header => $content) {
                                 $sections .= sprintf("<div class=\"head\">%s</div><div class=\"sect\">", $header, $delimiter);
                                 foreach ($content as $part) {
@@ -167,6 +168,7 @@ class MessageFormatter
                                 }
                                 $sections .= "</div>";
                         }
+                        $sections .= "</div>";
                 }
 
                 return sprintf($template, $message->title, str_replace("\n", "<br />", $message->message), $sections, $subst($message->greeting), $subst($message->footer));
