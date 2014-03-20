@@ -28,10 +28,10 @@ use UUP\Mail\MessageMailer;
  * passed to the constructor:
  * 
  * <code>
- * $message = new PearMessage(new ConfirmAccountRequest(), $formatter);
+ * $message = new Pear\Message(new ConfirmAccountRequest(), $formatter);
  * // ... more message function calls...
  * 
- * $mailer = new PearMailer('smtp', $config['smtp']);
+ * $mailer = new Pear\Mailer('smtp', $config['smtp']);
  * $mailer->send($message);
  * </code>
  *
@@ -39,7 +39,7 @@ use UUP\Mail\MessageMailer;
  * @package UUP
  * @subpackage Mail
  */
-class PearMailer implements MessageMailer
+class Mailer implements MessageMailer
 {
 
         /**
@@ -64,7 +64,7 @@ class PearMailer implements MessageMailer
 
         public function create($composer, $formatter)
         {
-                return new PearMessage($composer, $formatter);
+                return new Message($composer, $formatter);
         }
 
         public function send($message)

@@ -18,7 +18,8 @@
 
 namespace UUP\Mail\Pear;
 
-use UUP\Mail\Message;
+use UUP\Mail\Compose\MessageComposer,
+    UUP\Mail\Compose\MessageFormatter;
 
 require_once 'Mail.php';
 require_once 'Mail/mime.php';
@@ -30,7 +31,7 @@ require_once 'Mail/mime.php';
  * @package UUP
  * @subpackage Mail
  */
-class PearMessage extends \Mail_mime implements Message
+class Message extends \Mail_mime implements \UUP\Mail\Message
 {
 
         /**
@@ -66,24 +67,24 @@ class PearMessage extends \Mail_mime implements Message
                 parent::setTXTBody($body);
         }
 
-        public function setFrom($email, $name = null)
+        public function setFrom($addr, $name = null)
         {
-                parent::setFrom($email);
+                parent::setFrom($addr);
         }
 
-        public function addTo($email, $name = null)
+        public function addTo($addr, $name = null)
         {
-                parent::addTo($email);
+                parent::addTo($addr);
         }
 
         public function addBcc($addr, $name = null)
         {
-                parent::addBcc($email);
+                parent::addBcc($addr);
         }
 
         public function addCc($addr, $name = null)
         {
-                parent::addCc($email);
+                parent::addCc($addr);
         }
 
         public function setSubject($string)

@@ -22,8 +22,7 @@ require_once '../config/smtp.inc';
 use UUP\Mail\Compose\MessageComposer,
     UUP\Mail\Compose\MessageFormatter,
     UUP\Mail\Compose\MessageTemplate,
-    UUP\Mail\Pear\PearMessage,
-    UUP\Mail\Pear\PearMailer;
+    UUP\Mail\Pear;
 
 // 
 // Test driver for the PEAR Mail implementation.
@@ -48,11 +47,11 @@ $formatter = new MessageFormatter(
     new MessageTemplate('../config/html.tpl'), new MessageTemplate('../config/text.tpl')
 );
 
-$message = new PearMessage(new ConfirmAccountRequest(), $formatter);
+$message = new Pear\Message(new ConfirmAccountRequest(), $formatter);
 $message->setSubject('UUP Mail test (Pear)');
 $message->setFrom($config['mail']['from']);
 $message->addTo($config['mail']['to']);
 $message->attachFile(__FILE__);
 
-$mailer = new PearMailer('smtp', $config['smtp']);
+$mailer = new Pear\Mailer('smtp', $config['smtp']);
 $mailer->send($message);
