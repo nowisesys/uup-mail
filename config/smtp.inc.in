@@ -5,14 +5,25 @@
 // Copy to config/smtp.inc before running unit test or examples.
 // 
 
-$smtp_config = array(
-        'host' => 'localhost',
-        'port' => 25,
-        'user' => null,
-        'pass' => null
-);
-
-$mail_config = array(
-        'to'   => 'root@localhost',
-        'from' => 'root@localhost'
+$config = array(
+        'smtp'      => array(
+                'host' => 'localhost',
+                'port' => 25,
+                'user' => null,
+                'pass' => null
+        ),
+        'mail'      => array(
+                'to'   => 'root@localhost',
+                'from' => 'root@localhost'
+        ),
+        'message'   => array(
+                'app_base'     => 'http://localhost/uup/uup-mail',
+                'app_name'     => 'UUP Mail (thru config)',
+                'contact_addr' => 'contact@example.com',
+                'contact_name' => 'Contact Name'
+        ),
+        'templates' => array(
+                'html' => __DIR__ . '/html.tpl',
+                'text' => __DIR__ . '/text.tpl'
+        )
 );
