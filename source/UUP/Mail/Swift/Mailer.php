@@ -21,23 +21,34 @@ namespace UUP\Mail\Swift;
 use UUP\Mail\MessageMailer;
 
 /**
- * Specialization using the Swift SMTP Transport.
+ * Generic mailer using the Swift Mailer and Transport classes.
  *
  * @author Anders Lövgren (QNET/BMC CompDept)
  * @package UUP
  * @subpackage Mail
  */
-class SmtpMailer extends Mailer
+class Mailer implements MessageMailer
 {
+
+        private $impl;
 
         /**
          * Constructor.
-         * @param string $host The SMTP server host.
-         * @param int $port The SMTP server port.
+         * @param \Swift_Transport $transport The Swift Mailer transport to use for delivery.
          */
-        public function __construct($host = 'localhost', $port = 25)
+        public function __construct(\Swift_Transport $transport)
         {
-                parent::__construct(\Swift_SmtpTransport::newInstance($host, $port));
+                $this->impl = \Swift_Mailer::newInstance($transport);
+        }
+
+        public function create($composer, $formatter)
+        {
+                return new Message($composer, $formatter);
+        }
+
+        public function send($message)
+        {
+                $this->impl->send($message);
         }
 
 }
