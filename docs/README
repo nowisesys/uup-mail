@@ -5,7 +5,7 @@
 The uup-mail library provides a mail template and composer library for formatting
 mail messages. Its main focus is on message composition and layout using templates. 
 The actual sending (transport) of the SMTP message is delegated to other libraries,
-currently Swift Mailer and PEAR Mail si supported.
+currently Swift Mailer, PEAR Mail or PHPMailer is supported.
 
 This library was not designed to be used as a component library. Instead, it was
 designed with inheritance in mind. Create your own mail message classes (one for 
