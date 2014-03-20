@@ -22,6 +22,10 @@ use UUP\Mail\MessageMailer;
 
 /**
  * Generic mailer using the Swift Mailer and Transport classes.
+ * 
+ * For most applications, the transport used for initialization will be a Sendmail
+ * or SMTP transport, but its also possible to initialize it with more exotic
+ * transports as Failover or Load Balancing transports.
  *
  * @author Anders Lövgren (QNET/BMC CompDept)
  * @package UUP

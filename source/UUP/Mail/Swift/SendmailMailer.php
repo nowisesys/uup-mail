@@ -19,23 +19,22 @@
 namespace UUP\Mail\Swift;
 
 /**
- * Specialization using the Swift SMTP Transport.
+ * Specialization using Swift Sendmail Transport.
  *
  * @author Anders Lövgren (QNET/BMC CompDept)
  * @package UUP
  * @subpackage Mail
  */
-class SmtpMailer extends Mailer
+class SendmailMailer extends Mailer
 {
 
         /**
          * Constructor.
-         * @param string $host The SMTP server host.
-         * @param int $port The SMTP server port.
+         * @param string $command The sendmail command including arguments.
          */
-        public function __construct($host = 'localhost', $port = 25)
+        public function __construct($command = '/usr/sbin/sendmail -bs')
         {
-                parent::__construct(\Swift_SmtpTransport::newInstance($host, $port));
+                parent::__construct(\Swift_SendmailTransport::newInstance($command));
         }
 
 }
