@@ -21,9 +21,23 @@ namespace UUP\Mail\Pear;
 use UUP\Mail\MessageMailer;
 
 /**
- * Description of PearSmtpMailer
+ * Mail message delivery using PEAR Mail.
+ * 
+ * This class adds support for using PEAR Mail and any of its concrete implementation
+ * classes for doing mail message delivery. The wanted driver name (i.e. 'smtp') is
+ * passed to the constructor:
+ * 
+ * <code>
+ * $message = new PearMessage(new ConfirmAccountRequest(), $formatter);
+ * // ... more message function calls...
+ * 
+ * $mailer = new PearMailer('smtp', $config['smtp']);
+ * $mailer->send($message);
+ * </code>
  *
  * @author Anders Lövgren (QNET/BMC CompDept)
+ * @package UUP
+ * @subpackage Mail
  */
 class PearMailer implements MessageMailer
 {
