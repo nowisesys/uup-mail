@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace UUP\Mail\Pear;
+namespace UUP\Mail\Mailer\Pear;
 
 use UUP\Mail\MessageMailer;
 

@@ -22,7 +22,7 @@ require_once '../config/smtp.inc';
 use UUP\Mail\Compose\MessageComposer,
     UUP\Mail\Compose\MessageFormatter,
     UUP\Mail\Compose\MessageTemplate,
-    UUP\Mail\Swift;
+    UUP\Mail\Mailer\Swift;
 
 class ConfirmAccountRequest extends MessageComposer
 {

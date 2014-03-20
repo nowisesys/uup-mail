@@ -22,7 +22,7 @@ require_once '../config/smtp.inc';
 use UUP\Mail\Compose\MessageComposer,
     UUP\Mail\Compose\MessageFormatter,
     UUP\Mail\Compose\MessageTemplate,
-    UUP\Mail\Pear;
+    UUP\Mail\Mailer\Pear;
 
 // 
 // Test driver for the PEAR Mail implementation.

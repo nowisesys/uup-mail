@@ -16,27 +16,26 @@
  * limitations under the License.
  */
 
-namespace UUP\Mail\Swift;
+namespace UUP\Mail\Mailer\Swift;
 
 /**
- * Specialization using the Swift Mail Transport.
- * 
- * The mail transport is done using the standard PHP mail() function.
+ * Specialization using the Swift SMTP Transport.
  *
  * @author Anders Lövgren (QNET/BMC CompDept)
  * @package UUP
  * @subpackage Mail
  */
-class StandardMailer extends Mailer
+class SmtpMailer extends Mailer
 {
 
         /**
          * Constructor.
-         * @param string $params
+         * @param string $host The SMTP server host.
+         * @param int $port The SMTP server port.
          */
-        public function __construct($params = '-f%s')
+        public function __construct($host = 'localhost', $port = 25)
         {
-                parent::__construct(\Swift_MailTransport::newInstance($params));
+                parent::__construct(\Swift_SmtpTransport::newInstance($host, $port));
         }
 
 }

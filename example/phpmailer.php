@@ -22,7 +22,7 @@ require_once '../config/smtp.inc';
 use UUP\Mail\Compose\MessageComposer,
     UUP\Mail\Compose\MessageFormatter,
     UUP\Mail\Compose\MessageTemplate,
-    UUP\Mail\PHPMailer;
+    UUP\Mail\Mailer\PHPMailer;
 
 // 
 // Test driver for the PHPMailer implementation.

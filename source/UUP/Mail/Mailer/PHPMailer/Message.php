@@ -16,79 +16,63 @@
  * limitations under the License.
  */
 
-namespace UUP\Mail\Pear;
+namespace UUP\Mail\Mailer\PHPMailer;
 
 use UUP\Mail\Compose\MessageComposer,
     UUP\Mail\Compose\MessageFormatter;
 
-require_once 'Mail/mime.php';
-
 /**
- * Message implementation for PEAR Mail_Mime.
+ * Message implementation for PHPMailer.
  *
  * @author Anders Lövgren (QNET/BMC CompDept)
  * @package UUP
  * @subpackage Mail
  */
-class Message extends \Mail_mime implements \UUP\Mail\Message
+class Message extends \PHPMailer implements \UUP\Mail\Message
 {
 
         /**
          * Constructor.
          * @param MessageComposer $composer
          * @param MessageFormatter $formatter
-         * @param array $params Params for parent constructor.
          */
-        public function __construct($composer, $formatter, $params = array())
+        public function __construct($composer, $formatter)
         {
-                parent::Mail_mime($params);
-                self::setHtml($formatter->getHtmlBody($composer));
-                self::setText($formatter->getTextBody($composer));
-        }
-
-        public function attachData($data, $file = null, $type = null)
-        {
-                parent::addAttachment($data, $type, $file, false);
-        }
-
-        public function attachFile($file, $type = null)
-        {
-                parent::addAttachment($file, $type, basename($file), true);
-        }
-
-        public function setHtml($body)
-        {
-                parent::setHTMLBody($body);
-        }
-
-        public function setText($body)
-        {
-                parent::setTXTBody($body);
-        }
-
-        public function setFrom($addr, $name = null)
-        {
-                parent::setFrom($addr);
+                parent::__construct();
+                $this->Body = $formatter->getHtmlBody($composer);
+                $this->AltBody = $formatter->getTextBody($composer);
         }
 
         public function addTo($addr, $name = null)
         {
-                parent::addTo($addr);
+                $this->addAddress($addr, $name);
         }
 
-        public function addBcc($addr, $name = null)
+        public function attachData($data, $file = null, $type = null)
         {
-                parent::addBcc($addr);
+                $path = tempnam(sys_get_temp_dir(), 'uup_mail');
+                file_put_contents($path, $data);
+                $this->addAttachment($path, $file, 'base64', $type);
         }
 
-        public function addCc($addr, $name = null)
+        public function attachFile($file, $type = null)
         {
-                parent::addCc($addr);
+                $this->addAttachment($file, basename($file), 'base64', $type);
+        }
+
+        public function setHtml($body)
+        {
+                $this->Body = $body;
+        }
+
+        public function setText($body)
+        {
+                $this->AltBody = $body;
         }
 
         public function setSubject($string)
         {
-                parent::setSubject($string);
+                $this->Subject = $string;
         }
 
 }

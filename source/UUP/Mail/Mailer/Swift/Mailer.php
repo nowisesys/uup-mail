@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace UUP\Mail\Swift;
+namespace UUP\Mail\Mailer\Swift;
 
 use UUP\Mail\MessageMailer;
 

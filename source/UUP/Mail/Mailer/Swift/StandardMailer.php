@@ -16,28 +16,27 @@
  * limitations under the License.
  */
 
-namespace UUP\Mail\PHPMailer;
-
-use UUP\Mail\MessageMailer;
+namespace UUP\Mail\Mailer\Swift;
 
 /**
- * Mail delivery using PHPMailer.
+ * Specialization using the Swift Mail Transport.
+ * 
+ * The mail transport is done using the standard PHP mail() function.
  *
  * @author Anders Lövgren (QNET/BMC CompDept)
  * @package UUP
  * @subpackage Mail
  */
-class Mailer implements MessageMailer
+class StandardMailer extends Mailer
 {
 
-        public function create($composer, $formatter)
+        /**
+         * Constructor.
+         * @param string $params
+         */
+        public function __construct($params = '-f%s')
         {
-                return new Message($composer, $formatter);
-        }
-
-        public function send($message)
-        {
-                $message->send();
+                parent::__construct(\Swift_MailTransport::newInstance($params));
         }
 
 }
