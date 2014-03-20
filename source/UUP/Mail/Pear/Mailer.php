@@ -20,6 +20,8 @@ namespace UUP\Mail\Pear;
 
 use UUP\Mail\MessageMailer;
 
+require_once 'Mail.php';
+
 /**
  * Mail message delivery using PEAR Mail.
  * 
@@ -74,5 +76,5 @@ class Mailer implements MessageMailer
                 $head = $message->headers($head);
                 $this->mailer->send($head['To'], $head, $body);
         }
-        
+
 }

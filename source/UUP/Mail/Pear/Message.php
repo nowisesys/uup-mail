@@ -21,7 +21,6 @@ namespace UUP\Mail\Pear;
 use UUP\Mail\Compose\MessageComposer,
     UUP\Mail\Compose\MessageFormatter;
 
-require_once 'Mail.php';
 require_once 'Mail/mime.php';
 
 /**
