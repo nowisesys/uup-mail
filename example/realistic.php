@@ -43,7 +43,7 @@ class SwiftMessageService extends UUP\Mail\MessageService
         {
                 $this->formatter = $formatter;
                 self::setup($config);
-                parent::__construct(new UUP\Mail\Swift\SwiftSmtpMailer($config['host'], $config['port']));
+                parent::__construct(new UUP\Mail\Swift\SmtpMailer($config['host'], $config['port']));
         }
 
         public function create($composer, $formatter = null)

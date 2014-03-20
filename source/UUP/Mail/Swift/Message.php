@@ -19,8 +19,7 @@
 namespace UUP\Mail\Swift;
 
 use UUP\Mail\Compose\MessageComposer,
-    UUP\Mail\Compose\MessageFormatter,
-    UUP\Mail\Message;
+    UUP\Mail\Compose\MessageFormatter;
 
 /**
  * Message implementation for Swift Mailer.
@@ -32,7 +31,7 @@ use UUP\Mail\Compose\MessageComposer,
  * @package UUP
  * @subpackage Mail
  */
-class SwiftMessage extends \Swift_Message implements Message
+class Message extends \Swift_Message implements \UUP\Mail\Message
 {
 
         /**

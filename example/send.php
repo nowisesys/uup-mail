@@ -22,8 +22,7 @@ require_once '../config/smtp.inc';
 use UUP\Mail\Compose\MessageComposer,
     UUP\Mail\Compose\MessageFormatter,
     UUP\Mail\Compose\MessageTemplate,
-    UUP\Mail\Swift\SwiftMessage,
-    UUP\Mail\Swift\SwiftSmtpMailer;
+    UUP\Mail\Swift;
 
 class ConfirmAccountRequest extends MessageComposer
 {
@@ -44,10 +43,10 @@ $formatter = new MessageFormatter(
     new MessageTemplate('../config/html.tpl'), new MessageTemplate('../config/text.tpl')
 );
 
-$message = new SwiftMessage(new ConfirmAccountRequest(), $formatter);
+$message = new Swift\Message(new ConfirmAccountRequest(), $formatter);
 $message->setFrom($config['mail']['from']);
 $message->setTo($config['mail']['to']);
-$message->setSubject('UUP Mail test');
+$message->setSubject('UUP Mail test (Swift)');
 
-$mailer = new SwiftSmtpMailer($config['smtp']['host'], $config['smtp']['port']);
+$mailer = new Swift\SmtpMailer($config['smtp']['host'], $config['smtp']['port']);
 $mailer->send($message);

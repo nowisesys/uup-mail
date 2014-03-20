@@ -27,7 +27,7 @@ use UUP\Mail\MessageMailer;
  * @package UUP
  * @subpackage Mail
  */
-class SwiftSmtpMailer implements MessageMailer
+class SmtpMailer implements MessageMailer
 {
 
         private $impl;
@@ -46,7 +46,7 @@ class SwiftSmtpMailer implements MessageMailer
 
         public function create($composer, $formatter)
         {
-                return new SwiftMessage($composer, $formatter);
+                return new Message($composer, $formatter);
         }
 
         public function send($message)
