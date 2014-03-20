@@ -24,7 +24,7 @@ require_once 'Mail.php';
 require_once 'Mail/mime.php';
 
 /**
- * Create a PEAR Mail_Mime message.
+ * Message implementation for PEAR Mail_Mime.
  *
  * @author Anders Lövgren (QNET/BMC CompDept)
  * @package UUP

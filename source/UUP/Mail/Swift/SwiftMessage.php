@@ -23,7 +23,7 @@ use UUP\Mail\Compose\MessageComposer,
     UUP\Mail\Message;
 
 /**
- * Create a Swift Mailer Message.
+ * Message implementation for Swift Mailer.
  * 
  * The body (HTML and plain text) in the parent class is initialized from the
  * composer and formatter object passed to the constructor.
