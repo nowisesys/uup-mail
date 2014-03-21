@@ -25,6 +25,22 @@ namespace UUP\Mail;
  * is passed as an argument to this class constructor. The send() and create() methods
  * are merely delegating the task to its concrete mailer service object.
  * 
+ * Example using the Swift Mailer for SMTP transport:
+ * <code>
+ * use UUP\Mail\Mailer,
+ *     UUP\Mail;
+ * 
+ * $mailer  = new Swift\SmtpMailer($config['host'], $config['port');
+ * 
+ * $service = new MessageService($mailer);
+ * $message = $service->create($composer, $formatter);  // Create native message from composed.
+ * $message->setSubject(...);
+ * $message->setFrom(...);
+ *      ...
+ * 
+ * $service->send($message);    // Send message using service delegate ($mailer).
+ * </code>
+ * 
  * @author Anders Lövgren (QNET/BMC CompDept)
  * @package UUP
  * @subpackage Mail
