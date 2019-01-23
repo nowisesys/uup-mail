@@ -1,7 +1,7 @@
 ## UUP-MAIL - Mail template and composing library for PHP
 
 The uup-mail library provides a mail template and composer library for formatting
-mail messages. Its main focus is on message composition and layout using templates. 
+mail messages. Its main focus is on MIME message composition and layout using templates. 
 The actual sending (transport) of the SMTP message is delegated to other libraries,
 currently Swift Mailer, PEAR Mail or PHPMailer is supported.
 
