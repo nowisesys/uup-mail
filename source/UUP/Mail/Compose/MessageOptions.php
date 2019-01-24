@@ -26,7 +26,7 @@ namespace UUP\Mail\Compose;
  * @property-read string $app_base The application base URL.
  * @property-read string $app_name The application name.
  * 
- * @author Anders Lövgren (QNET/BMC CompDept)
+ * @author Anders Lövgren (Nowise Systems/BMC-IT, Uppsala University)
  * @package UUP
  * @subpackage Mail
  */
