@@ -27,7 +27,7 @@
                     <hr/><br/><span class="footer">%5$s</span>
                 </td>
                 <td class="logo">
-                    <img src="http://it.bmc.uu.se/images/uu_shadow/22975_UU_logga_transp.png"/>
+                    <img src="http://company.com/logotype.png"/>
                 </td>
             </tr>
         </table>
