@@ -48,4 +48,4 @@ A good example of real world usage can be found in example/realistic.php
 
 ### More
 
-More information can be found on the [project page](https://nowise.se/oss/uup-mail)
+More information can be found on the [project page](https://nowise.se/oss/uup/mail)
