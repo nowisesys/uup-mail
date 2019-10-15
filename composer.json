@@ -3,7 +3,7 @@
     "version": "1.0.6",
     "description": "Object oriented mail message composer for sending multipart (HTML/plain text) messages optionally formatted using templates (for HTML and plain text layout).",
     "type": "library",
-    "keywords": ["mail", "mime", "compose", "uup", "bmc"],
+    "keywords": ["mail", "mime", "compose", "uup"],
     "homepage": "https://nowise.se/oss/uup/mail",
     "license": "Apache-2.0",
     "authors": [
